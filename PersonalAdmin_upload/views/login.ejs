@@ -1,0 +1,24 @@
+<%- include('partials/head', { title: '登录' }) %>
+<div class="login-wrap">
+  <div class="login-card">
+    <h1 class="login-title">管理后台</h1>
+    <p class="login-sub">登录后可管理个人信息与账号密码</p>
+    <% if (flash) { %>
+      <div class="flash <%= flash.type %>"><%= flash.text %></div>
+    <% } %>
+    <form action="/login" method="post" class="form">
+      <label class="field">
+        <span>用户名</span>
+        <input type="text" name="username" placeholder="请输入用户名" autofocus required>
+      </label>
+      <label class="field">
+        <span>密码</span>
+        <input type="password" name="password" placeholder="请输入密码" required>
+      </label>
+      <button class="btn primary" type="submit">登录</button>
+    </form>
+    <p class="login-tip">首次启动时，初始密码会打印在服务终端里。</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<%- include('partials/head', { title: '个人信息' }) %>
+<div class="layout">
+  <%- include('partials/sidebar', { page: page }) %>
+  <main class="main">
+    <header class="page-head">
+      <h1>个人信息</h1>
+      <p>管理个人资料、头像与工作经历</p>
+    </header>
+
+    <% if (flash) { %>
+      <div class="flash <%= flash.type %>"><%= flash.text %></div>
+    <% } %>
+
+    <section class="card">
+      <h2 class="card-title">基本信息</h2>
+      <form action="/profile" method="post" class="form">
+        <div class="form-row">
+          <label class="field">
+            <span>姓名 <em>*</em></span>
+            <input type="text" name="name" value="<%= profile.name || '' %>" placeholder="例如：木滋垚" required>
+          </label>
+          <label class="field">
+            <span>职位 / 头衔 <em>*</em></span>
+            <input type="text" name="position" value="<%= profile.position || '' %>" placeholder="例如：物联网工程专业学生">
+          </label>
+        </div>
+
+        <div class="form-row">
+          <label class="field">
+            <span>一句话介绍</span>
+            <input type="text" name="tagline" value="<%= profile.tagline || '' %>" placeholder="用一句话介绍自己">
+          </label>
+          <div class="field avatar-field">
+            <span>头像</span>
+            <div class="avatar-row">
+              <div class="avatar-preview">
+                <% if (profile.avatar_data) { %>
+                  <img src="/avatar" alt="头像">
+                <% } else { %>
+                  <span class="avatar-empty">无</span>
+                <% } %>
+              </div>
+              <span class="avatar-hint">支持 jpg / png / webp，不超过 2MB</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="field">
+            <span>邮箱 <em>*</em></span>
+            <input type="email" name="email" value="<%= profile.email || '' %>" placeholder="例如：2683973485@qq.com" required>
+          </label>
+          <label class="field">
+            <span>所在地区</span>
+            <input type="text" name="region" value="<%= profile.region || '' %>" placeholder="例如：中国 · 辽宁大连">
+          </label>
+        </div>
+
+        <label class="field">
+          <span>简历文件路径</span>
+          <input type="text" name="resume_path" value="<%= profile.resume_path || '' %>" placeholder="例如：/resume.pdf">
+        </label>
+
+        <label class="field">
+          <span>个人简介</span>
+          <textarea name="bio" rows="4" placeholder="介绍你的方向、项目与经历"><%= profile.bio || '' %></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button class="btn primary" type="submit">保存个人信息</button>
+        </div>
+      </form>
+
+      <form action="/profile/avatar" method="post" enctype="multipart/form-data" class="avatar-form">
+        <input type="file" name="avatar" accept="image/jpeg,image/png,image/webp" required>
+        <button class="btn" type="submit">上传头像</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">工作经历</h2>
+      <% if (experiences.length === 0) { %>
+        <p class="empty">暂无工作经历，可在下方添加。</p>
+      <% } else { %>
+        <ul class="exp-list">
+          <% experiences.forEach(function (e) { %>
+            <li class="exp-item">
+              <div class="exp-main">
+                <div class="exp-title"><%= e.company %><span class="exp-role"><%= e.role %></span></div>
+                <div class="exp-period"><%= e.period %></div>
+                <p class="exp-desc"><%= e.description %></p>
+              </div>
+              <form action="/experiences/<%= e.id %>/delete" method="post" onsubmit="return confirm('确定删除这条经历？')">
+                <button class="btn danger" type="submit">删除</button>
+              </form>
+            </li>
+          <% }); %>
+        </ul>
+      <% } %>
+
+      <form action="/experiences" method="post" class="form exp-form">
+        <div class="form-row">
+          <label class="field">
+            <span>公司 / 组织 <em>*</em></span>
+            <input type="text" name="company" placeholder="例如：大连民族大学" required>
+          </label>
+          <label class="field">
+            <span>职位</span>
+            <input type="text" name="role" placeholder="例如：物联网工程专业学生">
+          </label>
+        </div>
+        <div class="form-row">
+          <label class="field">
+            <span>时间</span>
+            <input type="text" name="period" placeholder="例如：2023.09 - 至今">
+          </label>
+        </div>
+        <label class="field">
+          <span>描述</span>
+          <textarea name="description" rows="3" placeholder="做了什么事情、取得了什么成果"></textarea>
+        </label>
+        <div class="form-actions">
+          <button class="btn" type="submit">添加经历</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+</body>
+</html>

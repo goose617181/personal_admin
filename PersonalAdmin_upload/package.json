@@ -1,0 +1,21 @@
+{
+  "name": "personal-admin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "木滋垚个人管理后台：登录、个人信息、账号密码修改（Node.js + Express + MySQL/TiDB）",
+  "main": "server.js",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-session": "^2.1.1",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.11.0"
+  }
+}

@@ -1,0 +1,42 @@
+<%- include('partials/head', { title: '仪表盘' }) %>
+<div class="layout">
+  <%- include('partials/sidebar', { page: page }) %>
+  <main class="main">
+    <header class="page-head">
+      <h1>仪表盘</h1>
+      <p>账号概览与快捷入口</p>
+    </header>
+
+    <% if (flash) { %>
+      <div class="flash <%= flash.type %>"><%= flash.text %></div>
+    <% } %>
+
+    <section class="card">
+      <h2 class="card-title">当前账号</h2>
+      <div class="info-grid">
+        <div class="info-item"><span class="info-label">用户名</span><span class="info-value"><%= user.username %></span></div>
+        <div class="info-item"><span class="info-label">注册时间</span><span class="info-value"><%= new Date(user.created_at).toLocaleString('zh-CN') %></span></div>
+        <div class="info-item"><span class="info-label">姓名</span><span class="info-value"><%= profile.name || '未填写' %></span></div>
+        <div class="info-item"><span class="info-label">职位 / 头衔</span><span class="info-value"><%= profile.position || '未填写' %></span></div>
+        <div class="info-item"><span class="info-label">邮箱</span><span class="info-value"><%= profile.email || '未填写' %></span></div>
+        <div class="info-item"><span class="info-label">工作经历</span><span class="info-value"><%= expCount %> 条</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">快捷操作</h2>
+      <div class="quick-links">
+        <a class="quick" href="/profile">
+          <strong>编辑个人信息</strong>
+          <span>姓名、职位、简介、邮箱、头像</span>
+        </a>
+        <a class="quick" href="/password">
+          <strong>修改账号密码</strong>
+          <span>校验原密码，更新为新的登录密码</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

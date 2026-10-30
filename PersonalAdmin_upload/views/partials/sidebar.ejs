@@ -1,0 +1,12 @@
+<aside class="sidebar">
+  <div class="brand">管理后台</div>
+  <nav class="side-nav">
+    <a class="side-link <%= page === 'dashboard' ? 'active' : '' %>" href="/dashboard">仪表盘</a>
+    <a class="side-link <%= page === 'profile' ? 'active' : '' %>" href="/profile">个人信息</a>
+    <a class="side-link <%= page === 'password' ? 'active' : '' %>" href="/password">账号安全</a>
+    <a class="side-link" href="https://goose617181.github.io/personal_website/" target="_blank" rel="noopener">查看个人主页 ↗</a>
+  </nav>
+  <form class="logout" action="/logout" method="post">
+    <button type="submit">退出登录</button>
+  </form>
+</aside>
